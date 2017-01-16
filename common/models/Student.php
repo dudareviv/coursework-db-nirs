@@ -7,13 +7,19 @@ use Yii;
 /**
  * This is the model class for table "student".
  *
- * @property integer $user_id
+ * @property integer $id
+ * @property string $last_name
+ * @property string $first_name
+ * @property string $parent_name
  * @property integer $leader_id
  * @property integer $speciality_id
  *
  * @property Leader $leader
- * @property User $user
+ * @property Speciality $speciality
  * @property Work[] $works
+ *
+ * @property string $fullname
+ * @see User::getFullname()
  */
 class Student extends \yii\db\ActiveRecord
 {
@@ -31,11 +37,11 @@ class Student extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'leader_id', 'speciality_id'], 'integer'],
-            [['speciality_id'], 'required'],
-            [['user_id'], 'unique'],
-            [['leader_id'], 'exist', 'skipOnError' => true, 'targetClass' => Leader::className(), 'targetAttribute' => ['leader_id' => 'user_id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['last_name', 'first_name', 'parent_name', 'speciality_id'], 'required'],
+            [['last_name', 'first_name', 'parent_name'], 'string'],
+            [['leader_id', 'speciality_id'], 'integer'],
+            [['leader_id'], 'exist', 'skipOnError' => true, 'targetClass' => Leader::className(), 'targetAttribute' => ['leader_id' => 'id']],
+            [['speciality_id'], 'exist', 'skipOnError' => true, 'targetClass' => Speciality::className(), 'targetAttribute' => ['speciality_id' => 'id']],
         ];
     }
 
@@ -45,7 +51,10 @@ class Student extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'user_id' => 'User ID',
+            'id' => 'ID',
+            'last_name' => 'Last Name',
+            'first_name' => 'First Name',
+            'parent_name' => 'Parent Name',
             'leader_id' => 'Leader ID',
             'speciality_id' => 'Speciality ID',
         ];
@@ -56,15 +65,15 @@ class Student extends \yii\db\ActiveRecord
      */
     public function getLeader()
     {
-        return $this->hasOne(Leader::className(), ['user_id' => 'leader_id']);
+        return $this->hasOne(Leader::className(), ['id' => 'leader_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
+    public function getSpeciality()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(Speciality::className(), ['id' => 'speciality_id']);
     }
 
     /**
@@ -72,7 +81,7 @@ class Student extends \yii\db\ActiveRecord
      */
     public function getWorks()
     {
-        return $this->hasMany(Work::className(), ['student_id' => 'user_id']);
+        return $this->hasMany(Work::className(), ['student_id' => 'id']);
     }
 
     /**
@@ -82,5 +91,20 @@ class Student extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \common\queries\StudentQuery(get_called_class());
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullname()
+    {
+        $name = [
+            $this->last_name,
+            $this->first_name,
+            $this->parent_name,
+        ];
+
+        $name = array_filter($name);
+        return implode(' ', $name);
     }
 }

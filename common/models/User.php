@@ -13,10 +13,6 @@ use yii\web\IdentityInterface;
  *
  * @property integer $id
  * @property string $username
- * @property string $last_name
- * @property string $first_name
- * @property string $parent_name
- * @property integer $type
  * @property string $password_hash
  * @property string $password_reset_token
  * @property string $email
@@ -34,9 +30,6 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const TYPE_STUDENT = 0;
-    const TYPE_LEADER = 1;
-
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
 
@@ -67,7 +60,6 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
-            ['type', 'in', 'range' => [self::TYPE_STUDENT, self::TYPE_LEADER]],
         ];
     }
 
@@ -207,32 +199,6 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getFullname()
     {
-        $name = [
-            $this->last_name,
-            empty($this->first_name) ? null : (substr($this->first_name, 0, 1) . '.'),
-            empty($this->parent_name) ? null : (substr($this->parent_name, 0, 1) . '.'),
-        ];
-
-        $name = array_filter($name);
-        return implode(' ', $name);
-    }
-
-    /**
-     * @return array
-     */
-    public static function typeLabels()
-    {
-        return [
-            self::TYPE_STUDENT => 'Студент',
-            self::TYPE_LEADER => 'Руководитель'
-        ];
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTypeLabel()
-    {
-        return ArrayHelper::getValue(self::typeLabels(), $this->type);
+        return $this->username;
     }
 }

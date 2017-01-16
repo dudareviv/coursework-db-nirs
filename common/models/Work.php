@@ -10,6 +10,9 @@ use Yii;
  * @property integer $id
  * @property integer $student_id
  * @property integer $leader_id
+ * @property string $theme
+ * @property string $justification
+ * @property integer $status
  *
  * @property Event[] $events
  * @property Leader $leader
@@ -31,9 +34,11 @@ class Work extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['student_id', 'leader_id'], 'integer'],
-            [['leader_id'], 'exist', 'skipOnError' => true, 'targetClass' => Leader::className(), 'targetAttribute' => ['leader_id' => 'user_id']],
-            [['student_id'], 'exist', 'skipOnError' => true, 'targetClass' => Student::className(), 'targetAttribute' => ['student_id' => 'user_id']],
+            [['student_id', 'leader_id', 'theme', 'justification'], 'required'],
+            [['student_id', 'leader_id', 'status'], 'integer'],
+            [['theme', 'justification'], 'string'],
+            [['leader_id'], 'exist', 'skipOnError' => true, 'targetClass' => Leader::className(), 'targetAttribute' => ['leader_id' => 'id']],
+            [['student_id'], 'exist', 'skipOnError' => true, 'targetClass' => Student::className(), 'targetAttribute' => ['student_id' => 'id']],
         ];
     }
 
@@ -46,6 +51,9 @@ class Work extends \yii\db\ActiveRecord
             'id' => 'ID',
             'student_id' => 'Student ID',
             'leader_id' => 'Leader ID',
+            'theme' => 'Theme',
+            'justification' => 'Justification',
+            'status' => 'Status',
         ];
     }
 
@@ -62,7 +70,7 @@ class Work extends \yii\db\ActiveRecord
      */
     public function getLeader()
     {
-        return $this->hasOne(Leader::className(), ['user_id' => 'leader_id']);
+        return $this->hasOne(Leader::className(), ['id' => 'leader_id']);
     }
 
     /**
@@ -70,7 +78,7 @@ class Work extends \yii\db\ActiveRecord
      */
     public function getStudent()
     {
-        return $this->hasOne(Student::className(), ['user_id' => 'student_id']);
+        return $this->hasOne(Student::className(), ['id' => 'student_id']);
     }
 
     /**

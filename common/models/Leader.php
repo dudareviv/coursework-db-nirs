@@ -8,12 +8,17 @@ use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "leader".
  *
- * @property integer $user_id
+ * @property integer $id
+ * @property string $last_name
+ * @property string $first_name
+ * @property string $parent_name
  * @property string $grade
  *
- * @property User $user
  * @property Student[] $students
  * @property Work[] $works
+ *
+ * @property string $fullname
+ * @see User::getFullname()
  */
 class Leader extends \yii\db\ActiveRecord
 {
@@ -31,11 +36,8 @@ class Leader extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id'], 'integer'],
-            [['grade'], 'required'],
-            [['grade'], 'string'],
-            [['user_id'], 'unique'],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['last_name', 'first_name', 'parent_name', 'grade'], 'required'],
+            [['last_name', 'first_name', 'parent_name', 'grade'], 'string'],
         ];
     }
 
@@ -45,7 +47,10 @@ class Leader extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'user_id' => 'User ID',
+            'id' => 'ID',
+            'last_name' => 'Last Name',
+            'first_name' => 'First Name',
+            'parent_name' => 'Parent Name',
             'grade' => 'Grade',
         ];
     }
@@ -53,17 +58,9 @@ class Leader extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getStudents()
     {
-        return $this->hasMany(Student::className(), ['leader_id' => 'user_id']);
+        return $this->hasMany(Student::className(), ['leader_id' => 'id']);
     }
 
     /**
@@ -71,7 +68,7 @@ class Leader extends \yii\db\ActiveRecord
      */
     public function getWorks()
     {
-        return $this->hasMany(Work::className(), ['leader_id' => 'user_id']);
+        return $this->hasMany(Work::className(), ['leader_id' => 'id']);
     }
 
     /**
@@ -88,6 +85,21 @@ class Leader extends \yii\db\ActiveRecord
      */
     public static function fetchList()
     {
-        return ArrayHelper::map(self::find()->with('user')->all(), 'user_id', 'user.fullname');
+        return ArrayHelper::map(self::find()->all(), 'id', 'fullname');
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullname()
+    {
+        $name = [
+            $this->last_name,
+            $this->first_name,
+            $this->parent_name,
+        ];
+
+        $name = array_filter($name);
+        return implode(' ', $name);
     }
 }

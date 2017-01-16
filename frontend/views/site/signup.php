@@ -12,8 +12,6 @@ use common\models\Speciality;
 
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
-
-$this->registerJsFile('@web/js/signup.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
 <div class="site-signup">
     <h1><?= Html::encode($this->title) ?></h1>
@@ -27,38 +25,6 @@ $this->registerJsFile('@web/js/signup.js', ['depends' => \yii\web\JqueryAsset::c
             <?= $form->errorSummary($model) ?>
 
             <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-
-            <?= $form->field($model, 'last_name')->textInput() ?>
-
-            <?= $form->field($model, 'first_name')->textInput() ?>
-
-            <?= $form->field($model, 'parent_name')->textInput() ?>
-
-            <?= $form->field($model, 'type')->dropDownList(User::typeLabels(), [
-                'id' => 'signup_type',
-                'prompt' => 'Выберите тип регистрации'
-            ]) ?>
-
-            <div class="signup-categorization-fields" data-type="<?= User::TYPE_STUDENT ?>" style="display: none;">
-                <?= $form->field($model, 'student_leader_id')->dropDownList(Leader::fetchList(), [
-                    'prompt' => 'Нет'
-                ]) ?>
-
-                <?= $form->field($model, 'student_speciality_id')->dropDownList(Speciality::fetchList(), [
-                    'id' => 'signup_student_speciality',
-                    'prompt' => 'Другое'
-                ]) ?>
-
-                <div class="signup-student-speciality-fields" style="display: none;">
-                    <?= $form->field($model, 'student_speciality_name')->textInput() ?>
-
-                    <?= $form->field($model, 'student_speciality_number')->textInput() ?>
-                </div>
-            </div>
-
-            <div class="signup-categorization-fields" data-type="<?= User::TYPE_LEADER ?>" style="display: none;">
-                <?= $form->field($model, 'leader_grade')->textInput() ?>
-            </div>
 
             <?= $form->field($model, 'email') ?>
 

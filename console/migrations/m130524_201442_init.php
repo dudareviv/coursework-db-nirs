@@ -23,12 +23,6 @@ class m130524_201442_init extends Migration
             'id' => $this->primaryKey(),
             'username' => $this->string()->notNull()->unique(),
 
-            'last_name' => $this->string()->notNull(),//->comment('Фамилия'),
-            'first_name' => $this->string()->notNull(),//->comment('Имя'),
-            'parent_name' => $this->string()->notNull(),//->comment('Отчество'),
-
-            'type' => $this->smallInteger()->notNull(),//->comment('Тип: 0 - студент, 1 - руководитель'),
-
             'auth_key' => $this->string(32)->notNull(),
             'password_hash' => $this->string()->notNull(),
             'password_reset_token' => $this->string()->unique(),
