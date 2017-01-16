@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'work_id',
                 'filter' => \common\models\Work::fetchList(),
-                'value' => 'work.name'
+                'value' => 'work.theme'
             ],
             'title',
             'money:decimal',
