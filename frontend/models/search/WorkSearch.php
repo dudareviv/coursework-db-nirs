@@ -41,7 +41,7 @@ class WorkSearch extends Work
      */
     public function search($params)
     {
-        $query = Work::find();
+        $query = Work::find()->with(['student', 'leader']);
 
         // add conditions that should always apply here
 
