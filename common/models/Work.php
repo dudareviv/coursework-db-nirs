@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "work".
@@ -20,6 +21,10 @@ use Yii;
  */
 class Work extends \yii\db\ActiveRecord
 {
+    const STATUS_NEW = 0;
+    const STATUS_DURING = 1;
+    const STATUS_DONE = 10;
+
     /**
      * @inheritdoc
      */
@@ -49,11 +54,14 @@ class Work extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'student_id' => 'Student ID',
-            'leader_id' => 'Leader ID',
-            'theme' => 'Theme',
-            'justification' => 'Justification',
-            'status' => 'Status',
+            'student_id' => 'Студент',
+            'student.fullname' => 'Студент',
+            'leader_id' => 'Руководитель',
+            'leader.fullname' => 'Руководитель',
+            'theme' => 'Тема',
+            'justification' => 'Обоснование',
+            'status' => 'Статус',
+            'statusLabel' => 'Статус',
         ];
     }
 
@@ -88,5 +96,33 @@ class Work extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \common\queries\WorkQuery(get_called_class());
+    }
+
+    /**
+     * @return array
+     */
+    public static function fetchList()
+    {
+        return ArrayHelper::map(self::find()->all(), 'id', 'theme');
+    }
+
+    /**
+     * @return array
+     */
+    public static function statusLabels()
+    {
+        return [
+            self::STATUS_NEW => 'Новая',
+            self::STATUS_DURING => 'В работе',
+            self::STATUS_DONE => 'Завершена',
+        ];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatusLabel()
+    {
+        return ArrayHelper::getValue(self::statusLabels(), $this->status);
     }
 }

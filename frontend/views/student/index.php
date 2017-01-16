@@ -7,17 +7,17 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\models\search\StudentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Students';
+$this->title = 'Студенты';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="student-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Student', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить студента', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -28,8 +28,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'last_name',
             'first_name',
             'parent_name',
-            'leader_id',
-            // 'speciality_id',
+            [
+                'attribute' => 'speciality_id',
+                'filter' => \common\models\Speciality::fetchList(),
+                'value' => 'speciality.fullname',
+            ],
+            [
+                'attribute' => 'leader_id',
+                'filter' => \common\models\Leader::fetchList(),
+                'value' => 'leader.fullname',
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

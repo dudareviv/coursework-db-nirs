@@ -48,10 +48,10 @@ class Leader extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'last_name' => 'Last Name',
-            'first_name' => 'First Name',
-            'parent_name' => 'Parent Name',
-            'grade' => 'Grade',
+            'last_name' => 'Фамилия',
+            'first_name' => 'Имя',
+            'parent_name' => 'Отчество',
+            'grade' => 'Степень',
         ];
     }
 

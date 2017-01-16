@@ -9,6 +9,12 @@ use Yii;
  *
  * @property integer $id
  * @property integer $work_id
+ * @property string $title
+ * @property string $description
+ * @property double $money
+ * @property string $date
+ * @property string $created_at
+ * @property string $updated_at
  *
  * @property Work $work
  */
@@ -28,8 +34,11 @@ class Event extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['work_id'], 'required'],
+            [['work_id', 'title', 'description'], 'required'],
             [['work_id'], 'integer'],
+            [['title', 'description'], 'string'],
+            [['money'], 'number'],
+            [['date', 'created_at', 'updated_at'], 'safe'],
             [['work_id'], 'exist', 'skipOnError' => true, 'targetClass' => Work::className(), 'targetAttribute' => ['work_id' => 'id']],
         ];
     }
@@ -41,7 +50,13 @@ class Event extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'work_id' => 'Work ID',
+            'work_id' => 'Научная работа',
+            'title' => 'Наименование',
+            'description' => 'Описание',
+            'money' => 'Финансы',
+            'date' => 'Дата события',
+            'created_at' => 'Дата создания',
+            'updated_at' => 'Дата редактирования',
         ];
     }
 

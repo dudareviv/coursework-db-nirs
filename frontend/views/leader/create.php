@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Leader */
 
-$this->title = 'Create Leader';
-$this->params['breadcrumbs'][] = ['label' => 'Leaders', 'url' => ['index']];
+$this->title = 'Добавить руководителя';
+$this->params['breadcrumbs'][] = ['label' => 'Руководители', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="leader-create">

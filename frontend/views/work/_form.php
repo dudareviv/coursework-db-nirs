@@ -12,18 +12,22 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'student_id')->textInput() ?>
+    <?= $form->field($model, 'student_id')->dropDownList(\common\models\Student::fetchList()) ?>
 
-    <?= $form->field($model, 'leader_id')->textInput() ?>
+    <?= $form->field($model, 'leader_id')->dropDownList(\common\models\Leader::fetchList()) ?>
 
     <?= $form->field($model, 'theme')->textInput() ?>
 
-    <?= $form->field($model, 'justification')->textInput() ?>
+    <?= $form->field($model, 'justification')->widget(\dosamigos\ckeditor\CKEditor::className(), [
+        'options' => [
+            'lang' => 'ru',
+        ],
+    ]) ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($model, 'status')->dropDownList(\common\models\Work::statusLabels()) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

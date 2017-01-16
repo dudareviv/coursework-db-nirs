@@ -7,17 +7,17 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\models\search\LeaderSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Leaders';
+$this->title = 'Руководители';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="leader-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Leader', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить руководителя', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,

@@ -4,18 +4,18 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel frontend\models\search\EventSearch */
+/* @var $searchModel frontend\models\search\SpecialitySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'События';
+$this->title = 'Специальности';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="event-index">
+<div class="speciality-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Добавить событие', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить специальность', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -25,16 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            [
-                'attribute' => 'work_id',
-                'filter' => \common\models\Work::fetchList(),
-                'value' => 'work.name'
-            ],
-            'title',
-            'money:decimal',
-            'date:date',
-            // 'created_at',
-            // 'updated_at',
+            'name',
+            'number',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

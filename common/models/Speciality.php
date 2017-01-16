@@ -43,8 +43,8 @@ class Speciality extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'number' => 'Number',
+            'name' => 'Наименование',
+            'number' => 'Номер',
         ];
     }
 

@@ -28,7 +28,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -43,10 +43,11 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Зарегистрироваться', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
     } else {
+        $menuItems[] = ['label' => 'Специальности', 'url' => ['/speciality/index']];
         $menuItems[] = ['label' => 'Студенты', 'url' => ['/student/index']];
         $menuItems[] = ['label' => 'Руководители', 'url' => ['/leader/index']];
         $menuItems[] = ['label' => 'Научные работы', 'url' => ['/work/index']];
-        $menuItems[] = ['label' => 'Отчеты', 'url' => ['/event/index']];
+        $menuItems[] = ['label' => 'События', 'url' => ['/event/index']];
 
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')

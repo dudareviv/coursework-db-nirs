@@ -18,12 +18,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'parent_name')->textInput() ?>
 
-    <?= $form->field($model, 'leader_id')->textInput() ?>
+    <?= $form->field($model, 'leader_id')->dropDownList(\common\models\Leader::fetchList(), ['prompt' => 'Отсутствует']) ?>
 
-    <?= $form->field($model, 'speciality_id')->textInput() ?>
+    <?= $form->field($model, 'speciality_id')->dropDownList(\common\models\Speciality::fetchList()) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

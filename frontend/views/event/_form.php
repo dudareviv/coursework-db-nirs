@@ -12,10 +12,24 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'work_id')->textInput() ?>
+    <?= $form->field($model, 'work_id')->dropDownList(\common\models\Work::fetchList()) ?>
+
+    <?= $form->field($model, 'title')->textInput() ?>
+
+    <?= $form->field($model, 'description')->widget(\dosamigos\ckeditor\CKEditor::className(), [
+        'options' => [
+            'lang' => 'ru',
+        ],
+    ]) ?>
+
+    <?= $form->field($model, 'money')->input('number') ?>
+
+    <?= $form->field($model, 'date')->widget(\yii\jui\DatePicker::className(), [
+        'options' => ['class' => 'form-control']
+    ]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

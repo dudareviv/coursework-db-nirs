@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "student".
@@ -52,11 +53,13 @@ class Student extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'last_name' => 'Last Name',
-            'first_name' => 'First Name',
-            'parent_name' => 'Parent Name',
-            'leader_id' => 'Leader ID',
-            'speciality_id' => 'Speciality ID',
+            'last_name' => 'Фамилия',
+            'first_name' => 'Имя',
+            'parent_name' => 'Отчество',
+            'leader_id' => 'Руководитель',
+            'leader.fullname' => 'Руководитель',
+            'speciality_id' => 'Специальность',
+            'speciality.fullname' => 'Специальность',
         ];
     }
 
@@ -106,5 +109,13 @@ class Student extends \yii\db\ActiveRecord
 
         $name = array_filter($name);
         return implode(' ', $name);
+    }
+
+    /**
+     * @return array
+     */
+    public static function fetchList()
+    {
+        return ArrayHelper::map(self::find()->all(), 'id', 'fullname');
     }
 }
