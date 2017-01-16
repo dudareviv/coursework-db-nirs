@@ -6,9 +6,6 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use common\models\User;
-use common\models\Leader;
-use common\models\Speciality;
 
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
