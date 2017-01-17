@@ -43,11 +43,20 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Зарегистрироваться', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
     } else {
-        $menuItems[] = ['label' => 'Специальности', 'url' => ['/speciality/index']];
-        $menuItems[] = ['label' => 'Студенты', 'url' => ['/student/index']];
-        $menuItems[] = ['label' => 'Руководители', 'url' => ['/leader/index']];
-        $menuItems[] = ['label' => 'Научные работы', 'url' => ['/work/index']];
-        $menuItems[] = ['label' => 'События', 'url' => ['/event/index']];
+        $menuItems[] = ['label' => 'Запросы', 'items' => [
+            ['label' => 'Составной многотабличный', 'url' => ['/query/join']],
+//            ['label' => 'Студенты', 'url' => ['/student/index']],
+//            ['label' => 'Руководители', 'url' => ['/leader/index']],
+//            ['label' => 'Научные работы', 'url' => ['/work/index']],
+//            ['label' => 'События', 'url' => ['/event/index']],
+        ]];
+        $menuItems[] = ['label' => 'Данные', 'items' => [
+            ['label' => 'Специальности', 'url' => ['/speciality/index']],
+            ['label' => 'Студенты', 'url' => ['/student/index']],
+            ['label' => 'Руководители', 'url' => ['/leader/index']],
+            ['label' => 'Научные работы', 'url' => ['/work/index']],
+            ['label' => 'События', 'url' => ['/event/index']],
+        ]];
 
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
