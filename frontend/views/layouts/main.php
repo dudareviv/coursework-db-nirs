@@ -45,10 +45,7 @@ AppAsset::register($this);
     } else {
         $menuItems[] = ['label' => 'Запросы', 'items' => [
             ['label' => 'Составной многотабличный', 'url' => ['/query/join']],
-//            ['label' => 'Студенты', 'url' => ['/student/index']],
-//            ['label' => 'Руководители', 'url' => ['/leader/index']],
-//            ['label' => 'Научные работы', 'url' => ['/work/index']],
-//            ['label' => 'События', 'url' => ['/event/index']],
+            ['label' => 'Представление', 'url' => ['/query/view']],
         ]];
         $menuItems[] = ['label' => 'Данные', 'items' => [
             ['label' => 'Специальности', 'url' => ['/speciality/index']],

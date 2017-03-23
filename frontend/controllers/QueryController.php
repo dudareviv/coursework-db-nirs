@@ -12,6 +12,7 @@ namespace frontend\controllers;
 
 
 use frontend\models\MainForm;
+use frontend\models\view\StudentView;
 use yii\web\Controller;
 
 /**
@@ -33,6 +34,17 @@ class QueryController extends Controller
 
         return $this->render('join', [
             'model' => $model
+        ]);
+    }
+
+    public function actionView()
+    {
+        $searchModel = new StudentView();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('view', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider
         ]);
     }
 }
