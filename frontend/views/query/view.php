@@ -12,7 +12,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel frontend\models\view\StudentView */
+/* @var $searchModel \frontend\models\search\WorksViewSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Представление студентов и их руководителей';
@@ -25,10 +25,5 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'columns' => [
-            'student_id',
-            'student_full_name',
-            'leader_full_name',
-        ],
     ]); ?>
 </div>
